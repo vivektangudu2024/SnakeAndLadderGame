@@ -9,19 +9,24 @@ public class SnakeAndLadderGame {
         // Initialize player position
         int playerPosition = 0;
 
-        // Roll the dice
-        int dieRoll = rollDie();
+        // Continue the game until the player reaches the winning position (100)
+        while (playerPosition < 100) {
+            // Roll the dice
+            int dieRoll = rollDie();
 
-        System.out.println("Player rolled a " + dieRoll);
+            System.out.println("Player rolled a " + dieRoll);
 
-        // Check the option: No play, Ladder, or Snake
-        int option = checkOption();
+            // Check the option: No play, Ladder, or Snake
+            int option = checkOption();
 
-        // Update player position based on the option
-        playerPosition = updatePosition(playerPosition, dieRoll, option);
+            // Update player position based on the option
+            playerPosition = updatePosition(playerPosition, dieRoll, option);
 
-        // Display the current position
-        System.out.println("Player's current position: " + playerPosition);
+            // Display the current position
+            System.out.println("Player's current position: " + playerPosition);
+        }
+
+        System.out.println("Congratulations! Player reached the winning position 100. Game Over!");
     }
 
     /*
