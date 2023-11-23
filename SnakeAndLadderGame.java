@@ -6,35 +6,52 @@ public class SnakeAndLadderGame {
     public static void main(String[] args) {
         System.out.println("Welcome to Snake and Ladder Game!");
 
-        // Initialize player position and die throws
-        int playerPosition = 0;
+        // Initialize player positions and die throws
+        int player1Position = 0;
+        int player2Position = 0;
         int dieThrows = 0;
 
-        // Continue the game until the player reaches the winning position (100)
-        while (playerPosition < 100) {
+        // Continue the game until one of the players reaches the winning position (100)
+        while (player1Position < 100 && player2Position < 100) {
+            // Determine the current player
+            int currentPlayer = (dieThrows % 2 == 0) ? 1 : 2;
+
             // Roll the dice
             int dieRoll = rollDie();
             dieThrows++;
 
-            System.out.println("Die throw " + dieThrows + ": Player rolled a " + dieRoll);
+            System.out.println("Die throw " + dieThrows + " (Player " + currentPlayer + "): Player rolled a " + dieRoll);
 
             // Check the option: No play, Ladder, or Snake
             int option = checkOption();
 
             // Update player position based on the option
-            playerPosition = updatePosition(playerPosition, dieRoll, option);
-
-            // Ensure the player gets to the exact winning position of 100
-            if (playerPosition > 100) {
-                playerPosition -= dieRoll; // Move the player back to the previous position
-                System.out.println("Player overshoots! Moves back to the previous position.");
+            if (currentPlayer == 1) {
+                player1Position = updatePosition(player1Position, dieRoll, option);
+            } else {
+                player2Position = updatePosition(player2Position, dieRoll, option);
             }
 
-            // Display the current position
-            System.out.println("Player's current position: " + playerPosition);
+            // Ensure the player gets to the exact winning position of 100
+            if (currentPlayer == 1 && player1Position > 100) {
+                player1Position -= dieRoll; // Move the player back to the previous position
+                System.out.println("Player 1 overshoots! Moves back to the previous position.");
+            } else if (currentPlayer == 2 && player2Position > 100) {
+                player2Position -= dieRoll; // Move the player back to the previous position
+                System.out.println("Player 2 overshoots! Moves back to the previous position.");
+            }
+
+            // Display the current positions
+            System.out.println("Player 1's current position: " + player1Position);
+            System.out.println("Player 2's current position: " + player2Position);
         }
 
-        System.out.println("Congratulations! Player reached the winning position 100 in " + dieThrows + " die throws. Game Over!");
+        // Determine the winner
+        if (player1Position >= 100) {
+            System.out.println("Player 1 wins! Player 1 reached the winning position 100 in " + dieThrows/2 + " die throws.");
+        } else {
+            System.out.println("Player 2 wins! Player 2 reached the winning position 100 in " + dieThrows/2 + " die throws.");
+        }
     }
 
     /*
@@ -70,6 +87,7 @@ public class SnakeAndLadderGame {
             case 1: // Ladder
                 System.out.println("Ladder! Player moves ahead by " + dieRoll + " positions.");
                 position += dieRoll;
+                //if(position>100)position-=dieRoll;
                 break;
             case 2: // Snake
                 System.out.println("Snake! Player moves behind by " + dieRoll + " positions.");
