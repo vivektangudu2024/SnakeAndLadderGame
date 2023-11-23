@@ -6,15 +6,17 @@ public class SnakeAndLadderGame {
     public static void main(String[] args) {
         System.out.println("Welcome to Snake and Ladder Game!");
 
-        // Initialize player position
+        // Initialize player position and die throws
         int playerPosition = 0;
+        int dieThrows = 0;
 
         // Continue the game until the player reaches the winning position (100)
         while (playerPosition < 100) {
             // Roll the dice
             int dieRoll = rollDie();
+            dieThrows++;
 
-            System.out.println("Player rolled a " + dieRoll);
+            System.out.println("Die throw " + dieThrows + ": Player rolled a " + dieRoll);
 
             // Check the option: No play, Ladder, or Snake
             int option = checkOption();
@@ -32,7 +34,7 @@ public class SnakeAndLadderGame {
             System.out.println("Player's current position: " + playerPosition);
         }
 
-        System.out.println("Congratulations! Player reached the winning position 100. Game Over!");
+        System.out.println("Congratulations! Player reached the winning position 100 in " + dieThrows + " die throws. Game Over!");
     }
 
     /*
