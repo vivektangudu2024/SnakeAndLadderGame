@@ -22,6 +22,12 @@ public class SnakeAndLadderGame {
             // Update player position based on the option
             playerPosition = updatePosition(playerPosition, dieRoll, option);
 
+            // Ensure the player gets to the exact winning position of 100
+            if (playerPosition > 100) {
+                playerPosition -= dieRoll; // Move the player back to the previous position
+                System.out.println("Player overshoots! Moves back to the previous position.");
+            }
+
             // Display the current position
             System.out.println("Player's current position: " + playerPosition);
         }
@@ -70,5 +76,4 @@ public class SnakeAndLadderGame {
         }
         return position;
     }
-
 }
